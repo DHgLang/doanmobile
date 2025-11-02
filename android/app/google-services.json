@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "1096305927941",
+    "firebase_url": "https://movieapp-f4c5f-default-rtdb.firebaseio.com",
+    "project_id": "movieapp-f4c5f",
+    "storage_bucket": "movieapp-f4c5f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1096305927941:android:42888470aa991bfc9ff96c",
+        "android_client_info": {
+          "package_name": "com.example.doanmobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTgEqj53uwLordjADb7oB1wKsa_E_nYV8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
