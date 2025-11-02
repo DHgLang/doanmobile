@@ -67,5 +67,18 @@
   "no_comments": "No comments yet.",
   "no_ratings": "No ratings yet",
   "votes": "votes",
-  "edit": "Edit"
+  "edit": "Edit",
+
+  "manage_profile": "Manage Profile",
+  "update_profile": "Update Profile",
+  "display_name": "Display Name",
+  "change_password": "Change Password",
+  "switch_language": "Switch Language",
+  "update_avatar_success": "✅ Avatar updated successfully!",
+  "error_upload_image": "❌ Error uploading image.",
+  "empty_name_warning": "Display name cannot be empty.",
+  "update_profile_success": "✅ Profile updated successfully!",
+  "error_update_profile": "❌ Error updating profile.",
+  "password_reset_sent": "Password reset email sent. Please check your inbox.",
+  "no_email": "No email"
 }

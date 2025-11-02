@@ -21,6 +21,11 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   final user = FirebaseAuth.instance.currentUser;
 
+  Future<void> _refreshUser() async {
+    await FirebaseAuth.instance.currentUser?.reload();
+    setState(() {});
+  }
+
   void _showMenu() {
     showModalBottomSheet(
       context: context,
@@ -38,13 +43,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 leading: const Icon(Icons.person, color: Colors.white),
                 title: Text('manage_profile'.tr(),
                     style: const TextStyle(color: Colors.white)),
-                onTap: () {
+                onTap: () async {
                   Navigator.pop(context);
-                  Navigator.push(
+                  await Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (_) => const ManageProfileScreen()),
                   );
+                  // ✅ Sau khi quay lại -> refresh thông tin
+                  await _refreshUser();
                 },
               ),
               ListTile(
@@ -115,10 +122,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
+
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
-        title: Text('my_profile_title'.tr()),
+        title: Text('my_profile_title'.tr(),
+    style: const TextStyle(
+      color:  Color(0xFF1E90FF), // 🔹 chỉ đổi màu chữ sang xanh
+      fontWeight: FontWeight.bold, ), ),
+        
         backgroundColor: Colors.black,
         actions: [
           IconButton(
@@ -127,71 +140,81 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Column(
-                  children: [
-                    CircleAvatar(
-                      radius: 40,
-                      backgroundColor: Colors.redAccent,
-                      child: const Icon(
-                        Icons.face,
-                        color: Colors.white,
-                        size: 40,
+      body: RefreshIndicator(
+        onRefresh: _refreshUser,
+        color: Colors.redAccent,
+        child: SingleChildScrollView(
+          physics: const AlwaysScrollableScrollPhysics(),
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Column(
+                    children: [
+                      CircleAvatar(
+                        radius: 45,
+                        backgroundColor: Colors.grey[800],
+                        backgroundImage: (user?.photoURL != null &&
+                                user!.photoURL!.isNotEmpty)
+                            ? NetworkImage(user.photoURL!)
+                            : null,
+                        child: (user?.photoURL == null ||
+                                user!.photoURL!.isEmpty)
+                            ? const Icon(Icons.person, size: 50, color: Colors.white)
+                            : null,
                       ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      user?.email ?? 'user_default'.tr(),
-                      style: const TextStyle(color: Colors.white, fontSize: 16),
-                    ),
-                  ],
+                      const SizedBox(height: 8),
+                      Text(
+                        user?.displayName?.isNotEmpty == true
+                            ? user!.displayName!
+                            : user?.email ?? 'user_default'.tr(),
+                        style: const TextStyle(color: Colors.white, fontSize: 16),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              const SizedBox(height: 24),
-              buildProfileOption(
-                icon: Icons.download,
-                title: 'downloads'.tr(),
-                subtitle: 'downloads_desc'.tr(),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => const DownloadsScreen()),
-                  );
-                },
-              ),
-              const SizedBox(height: 16),
-              buildProfileOption(
-                icon: Icons.bookmark,
-                title: 'my_list'.tr(),
-                subtitle: 'my_list_desc'.tr(),
-                buttonText: 'browse_to_add'.tr(),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => const MyListScreen()),
-                  );
-                },
-              ),
-              const SizedBox(height: 16),
-              buildProfileOption(
-                icon: Icons.movie_filter,
-                title: 'trailers_watched'.tr(),
-                subtitle: 'trailers_watched_desc'.tr(),
-                buttonText: 'watch_trailer'.tr(),
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (_) => const SearchScreen()),
-                  );
-                },
-              ),
-            ],
+                const SizedBox(height: 24),
+                buildProfileOption(
+                  icon: Icons.download,
+                  title: 'downloads'.tr(),
+                  subtitle: 'downloads_desc'.tr(),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const DownloadsScreen()),
+                    );
+                  },
+                ),
+                const SizedBox(height: 16),
+                buildProfileOption(
+                  icon: Icons.bookmark,
+                  title: 'my_list'.tr(),
+                  subtitle: 'my_list_desc'.tr(),
+                  buttonText: 'browse_to_add'.tr(),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const MyListScreen()),
+                    );
+                  },
+                ),
+                const SizedBox(height: 16),
+                buildProfileOption(
+                  icon: Icons.movie_filter,
+                  title: 'trailers_watched'.tr(),
+                  subtitle: 'trailers_watched_desc'.tr(),
+                  buttonText: 'watch_trailer'.tr(),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (_) => const SearchScreen()),
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

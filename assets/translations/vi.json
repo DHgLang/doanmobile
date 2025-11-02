@@ -68,5 +68,18 @@
   "no_comments": "Chưa có bình luận nào.",
   "no_ratings": "Chưa có đánh giá",
   "votes": "lượt",
-  "edit": "Sửa"
+  "edit": "Sửa",
+  
+  "manage_profile": "Quản lý hồ sơ",
+  "update_profile": "Cập nhật hồ sơ",
+  "display_name": "Tên hiển thị",
+  "change_password": "Thay đổi mật khẩu",
+  "switch_language": "Chuyển đổi ngôn ngữ",
+  "update_avatar_success": "✅ Cập nhật ảnh đại diện thành công!",
+  "error_upload_image": "❌ Lỗi khi tải ảnh lên.",
+  "empty_name_warning": "Tên hiển thị không được để trống.",
+  "update_profile_success": "✅ Cập nhật hồ sơ thành công!",
+  "error_update_profile": "❌ Lỗi khi cập nhật hồ sơ.",
+  "password_reset_sent": "Đã gửi email đặt lại mật khẩu. Vui lòng kiểm tra hộp thư.",
+  "no_email": "Không có email"
 }
