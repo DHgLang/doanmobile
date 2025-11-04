@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import '../models/movie_model.dart';
 
 class ApiService {
-  final String apiKey = '';
+  final String apiKey = 'e7a38b001b5bd78915172e6b5be5d148';
   final String baseUrl = 'https://api.themoviedb.org/3';
   final String language = 'vi-VN';
 

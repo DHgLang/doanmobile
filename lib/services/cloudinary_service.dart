@@ -4,9 +4,9 @@ import 'package:characters/characters.dart';
 
 /// Service để tìm video trong Cloudinary theo tên phim.
 class CloudinaryService {
-  static const String cloudName = "";
-  static const String apiKey = "";
-  static const String apiSecret = "";
+  static const String cloudName = "dphkxkx20";
+  static const String apiKey = "768268159977235";
+  static const String apiSecret = "ag_5Wec6hMMbvUDxeu6J0LsUqqU";
 
   /// 🔧 Chuẩn hóa tên phim: bỏ dấu tiếng Việt, viết thường, thay khoảng trắng bằng "_"
   static String normalizeTitle(String input) {

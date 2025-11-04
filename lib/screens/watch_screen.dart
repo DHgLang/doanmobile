@@ -48,14 +48,29 @@ class _WatchScreenState extends State<WatchScreen> {
           flags: const YoutubePlayerFlags(autoPlay: true),
         );
       } else {
-        // Phát link trực tiếp (.m3u8 hoặc .mp4)
+        // PHÁT LINK TRỰC TIẾP (.m3u8 hoặc .mp4)
         _videoController = VideoPlayerController.networkUrl(Uri.parse(url));
         await _videoController!.initialize();
+
+        // ✅ CẤU HÌNH CHEWIE ĐỂ THÊM TÍNH NĂNG TĂNG TỐC ĐỘ PHÁT VÀ ÂM LƯỢNG
         _chewieController = ChewieController(
           videoPlayerController: _videoController!,
           autoPlay: true,
           looping: false,
           aspectRatio: _videoController!.value.aspectRatio,
+          
+          // 💡 THÊM TĂNG TỐC ĐỘ PHÁT (Playback Speed)
+          // Chewie sẽ tự động tạo nút Speed controls.
+          playbackSpeeds: const [0.5, 1.0, 1.5, 2.0], 
+
+          // 💡 THÊM ÂM LƯỢNG (Volume)
+          // Chewie mặc định đã bao gồm nút âm lượng, nhưng bạn có thể thiết lập
+          // âm lượng khởi tạo cho VideoPlayerController nếu muốn:
+          // _videoController!.setVolume(1.0); // 1.0 là 100%
+
+          // 💡 Cấu hình giao diện người dùng để đảm bảo các nút được hiển thị
+          // (Chewie Controls mặc định đã bao gồm Play/Pause, Tua, Toàn màn hình và Volume/Speed)
+          allowPlaybackSpeedChanging: true,
         );
       }
     } catch (e) {
@@ -85,6 +100,7 @@ class _WatchScreenState extends State<WatchScreen> {
 
   @override
   void dispose() {
+    // Rất quan trọng: giải phóng tài nguyên khi rời màn hình
     _videoController?.dispose();
     _chewieController?.dispose();
     _youtubeController?.dispose();
@@ -114,6 +130,7 @@ class _WatchScreenState extends State<WatchScreen> {
               final movie = relatedMovies[index];
               return GestureDetector(
                 onTap: () {
+                  // Dùng pushReplacement để thay thế màn hình hiện tại bằng màn hình chi tiết phim mới
                   Navigator.pushReplacement(
                     context,
                     MaterialPageRoute(
@@ -175,21 +192,22 @@ class _WatchScreenState extends State<WatchScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   AspectRatio(
+                    // Sử dụng 16/9 là tỷ lệ mặc định nếu không có controller
                     aspectRatio: _videoController?.value.aspectRatio ?? 16 / 9,
                     child: hasError
                         ? const Center(
-                            child: Icon(Icons.error_outline, color: Colors.white, size: 50),
-                          )
+                              child: Icon(Icons.error_outline, color: Colors.white, size: 50),
+                            )
                         : (_chewieController != null
                             ? Chewie(controller: _chewieController!)
                             : (_youtubeController != null
                                 ? YoutubePlayerBuilder(
-                                    player: YoutubePlayer(
-                                      controller: _youtubeController!,
-                                      showVideoProgressIndicator: true,
-                                    ),
-                                    builder: (context, player) => player,
-                                  )
+                                      player: YoutubePlayer(
+                                        controller: _youtubeController!,
+                                        showVideoProgressIndicator: true,
+                                      ),
+                                      builder: (context, player) => player,
+                                    )
                                 : const Center(child: CircularProgressIndicator()))),
                   ),
                   Padding(
@@ -215,6 +233,7 @@ class _WatchScreenState extends State<WatchScreen> {
                         const SizedBox(height: 20),
                         _buildRelatedMovies(),
                         const SizedBox(height: 20),
+                        // Phần bình luận (tác dụng là nơi người dùng trao đổi)
                         CommentSection(movieId: movie.id),
                       ],
                     ),

@@ -40,12 +40,8 @@ class DefaultFirebaseOptions {
     }
   }
 
-  // CẢNH BÁO BẢO MẬT: Đã thay thế API Key thực tế bằng placeholder.
-  // Đảm bảo không commit file này lên Git.
-  static const String _apiKeyPlaceholder = 'YOUR_API_KEY_HERE';
-
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: _apiKeyPlaceholder,
+    apiKey: 'AIzaSyDmCYXCKIcEUx_PvrqaxtH-twOzdrIcR_k',
     appId: '1:1096305927941:web:b3e225646bbfdc829ff96c',
     messagingSenderId: '1096305927941',
     projectId: 'movieapp-f4c5f',
@@ -56,7 +52,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: _apiKeyPlaceholder,
+    apiKey: 'AIzaSyDTgEqj53uwLordjADb7oB1wKsa_E_nYV8',
     appId: '1:1096305927941:android:42888470aa991bfc9ff96c',
     messagingSenderId: '1096305927941',
     projectId: 'movieapp-f4c5f',
@@ -65,7 +61,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: _apiKeyPlaceholder,
+    apiKey: 'AIzaSyAvdDR_d77-WUnX3YrJcLvhmcgqdyFJeS0',
     appId: '1:1096305927941:ios:364d585b5e4589629ff96c',
     messagingSenderId: '1096305927941',
     projectId: 'movieapp-f4c5f',
@@ -75,7 +71,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: _apiKeyPlaceholder,
+    apiKey: 'AIzaSyAvdDR_d77-WUnX3YrJcLvhmcgqdyFJeS0',
     appId: '1:1096305927941:ios:364d585b5e4589629ff96c',
     messagingSenderId: '1096305927941',
     projectId: 'movieapp-f4c5f',
@@ -85,7 +81,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: _apiKeyPlaceholder,
+    apiKey: 'AIzaSyDmCYXCKIcEUx_PvrqaxtH-twOzdrIcR_k',
     appId: '1:1096305927941:web:65694bc5fcd8a1ad9ff96c',
     messagingSenderId: '1096305927941',
     projectId: 'movieapp-f4c5f',
